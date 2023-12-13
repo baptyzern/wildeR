@@ -14,7 +14,7 @@ distribCroisee(var1, var2, large = FALSE)
 \item{large}{Un booléen indiquant si des statistiques supplémentaires doivent être calculées.}
 }
 \value{
-Un data frame contenant des statistiques descriptives croisées.
+Une table contenant des statistiques descriptives croisées.
 
 Si \code{large} est TRUE, le tableau inclut les statistiques suivantes :
 \itemize{

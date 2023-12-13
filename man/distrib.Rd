@@ -12,7 +12,7 @@ distrib(var, large = FALSE)
 \item{large}{Un booléen indiquant si des statistiques supplémentaires doivent être calculées.}
 }
 \value{
-Un data frame contenant des statistiques descriptives.
+Une table contenant des statistiques descriptives.
 
 Si \code{large} est TRUE, le tableau inclut les statistiques suivantes :
 \itemize{

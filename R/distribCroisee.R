@@ -6,7 +6,7 @@
 #' @param var2 Vecteur de données utilisé pour le croisement.
 #' @param large Un booléen indiquant si des statistiques supplémentaires doivent être calculées.
 #'
-#' @return Un data frame contenant des statistiques descriptives croisées.
+#' @return Une table contenant des statistiques descriptives croisées.
 #'
 #' Si `large` est TRUE, le tableau inclut les statistiques suivantes :
 #'   - min, p01, p05, p20, p25, p40, p50, p60, p75, p80, p95, p99, max
@@ -25,7 +25,23 @@
 #'
 #' @export
 distribCroisee <- function(var1, var2, large = FALSE) {
-  # Le corps de la fonction reste inchangé
+
+  n_total1 <- sum(is.na(var1)) + sum(!is.na(var1))
+  n_valid1 <- sum(!is.na(var1))
+  p_valid1 <- n_valid1/n_total1
+  n_total2 <- sum(is.na(var2)) + sum(!is.na(var2))
+  n_valid2 <- sum(!is.na(var2))
+  p_valid2 <- n_valid2/n_total2
+
+  message(paste0("n_total in var1 = ", n_total1))
+  message(paste0("n_valid in var1 = ", n_valid1))
+  message(paste0("p_valid in var1 = ", p_valid1))
+  message(paste0("n_total in var2 = ", n_total2))
+  message(paste0("n_valid in var2 = ", n_valid2))
+  message(paste0("p_valid in var2 = ", p_valid2))
+  message("Be aware of the distribution of NA among groups!")
+  message("\n")
+
   if (large) {
     rep <- cbind("min" = tapply(var1, var2, stats::quantile, probs = 0.00, na.rm = T),
                  "p01" = tapply(var1, var2, stats::quantile, probs = 0.01, na.rm = T, type = 1),
@@ -41,10 +57,10 @@ distribCroisee <- function(var1, var2, large = FALSE) {
                  "p99" = tapply(var1, var2, stats::quantile, probs = 0.99, na.rm = T, type = 1),
                  "max" = tapply(var1, var2, stats::quantile, probs = 1.00, na.rm = T),
                  "mean"= tapply(var1, var2, base::mean, na.rm = T),
-                 "sd"  = tapply(var1, var2, stats::sd, na.rm = T),
-                 "n"     = tapply(var1, var2, function(var) {return(sum(is.na(var)) + sum(!is.na(var)))}),
-                 "NA(n)" = tapply(var1, var2, function(var) {return(sum(is.na(var)))}),
-                 "NA(%)" = tapply(var1, var2, function(var) {return(round(sum(is.na(var)) / (sum(is.na(var)) + sum(!is.na(var))) * 100, 3))})
+                 "sd"  = tapply(var1, var2, stats::sd, na.rm = T)
+                 # "n"     = tapply(var1, var2, function(var) {return(sum(is.na(var)) + sum(!is.na(var)))}),
+                 # "NA(n)" = tapply(var1, var2, function(var) {return(sum(is.na(var)))}),
+                 # "NA(%)" = tapply(var1, var2, function(var) {return(round(sum(is.na(var)) / (sum(is.na(var)) + sum(!is.na(var))) * 100, 3))})
     )} else {
       rep <- cbind("min" = tapply(var1, var2, stats::quantile, probs = 0.00, na.rm = T),
                    "p25" = tapply(var1, var2, stats::quantile, probs = 0.25, na.rm = T, type = 1),
@@ -52,9 +68,15 @@ distribCroisee <- function(var1, var2, large = FALSE) {
                    "p75" = tapply(var1, var2, stats::quantile, probs = 0.75, na.rm = T, type = 1),
                    "max" = tapply(var1, var2, stats::quantile, probs = 1.00, na.rm = T),
                    "mean"= tapply(var1, var2, base::mean, na.rm = T),
-                   "sd"  = tapply(var1, var2, stats::sd, na.rm = T),
-                   "n"     = tapply(var1, var2, function(var) {return(sum(is.na(var)) + sum(!is.na(var)))}),
-                   "NA(n)" = tapply(var1, var2, function(var) {return(sum(is.na(var)))})
+                   "sd"  = tapply(var1, var2, stats::sd, na.rm = T)
+                   # "n"     = tapply(var1, var2, function(var) {return(sum(is.na(var)) + sum(!is.na(var)))}),
+                   # "NA(n)" = tapply(var1, var2, function(var) {return(sum(is.na(var)))})
       )}
+
+  if (length(labelled::var_label(var1)) > 0) {
+    rep <- as.table(rep)
+    names(attributes(rep)$dimnames) <- c("", labelled::var_label(var1))
+  }
+
   return(rep)
 }

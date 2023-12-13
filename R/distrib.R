@@ -5,7 +5,7 @@
 #' @param var Vecteur de données numériques.
 #' @param large Un booléen indiquant si des statistiques supplémentaires doivent être calculées.
 #'
-#' @return Un data frame contenant des statistiques descriptives.
+#' @return Une table contenant des statistiques descriptives.
 #'
 #' Si `large` est TRUE, le tableau inclut les statistiques suivantes :
 #'   - min, p01, p05, p20, p25, p40, p50, p60, p75, p80, p95, p99, max
@@ -25,6 +25,18 @@
 #' @export
 distrib <- function(var, large = FALSE) {
   # Le corps de la fonction reste inchangé
+
+  n_total <- sum(is.na(var)) + sum(!is.na(var))
+  n_valid <- sum(!is.na(var))
+  p_valid <- n_valid/n_total
+
+  message(paste0("n_total in var = ", n_total))
+  message(paste0("n_valid in var = ", n_valid))
+  message(paste0("p_valid in var = ", p_valid))
+  message("\n")
+
+
+
   if (large) {
     rep <- cbind("min" = stats::quantile(var, probs = 0.00, na.rm = T),
                  "p01" = stats::quantile(var, probs = 0.01, na.rm = T, type = 1),
@@ -40,10 +52,7 @@ distrib <- function(var, large = FALSE) {
                  "p99" = stats::quantile(var, probs = 0.99, na.rm = T, type = 1),
                  "max" = stats::quantile(var, probs = 1.00, na.rm = T),
                  "mean"= base::mean(var, na.rm = T),
-                 "sd"  = stats::sd(var, na.rm = T),
-                 "n"     = sum(is.na(var)) + sum(!is.na(var)),
-                 "NA(n)" = sum(is.na(var)),
-                 "NA(%)" = round(sum(is.na(var)) / (sum(is.na(var)) + sum(!is.na(var))) * 100, 3)
+                 "sd"  = stats::sd(var, na.rm = T)
     )} else {
       rep <- cbind("min" = stats::quantile(var, probs = 0.00, na.rm = T),
                    "p25" = stats::quantile(var, probs = 0.25, na.rm = T, type = 1),
@@ -51,10 +60,13 @@ distrib <- function(var, large = FALSE) {
                    "p75" = stats::quantile(var, probs = 0.75, na.rm = T, type = 1),
                    "max" = stats::quantile(var, probs = 1.00, na.rm = T),
                    "mean"= base::mean(var, na.rm = T),
-                   "sd"  = stats::sd(var, na.rm = T),
-                   "n"     = sum(is.na(var)) + sum(!is.na(var)),
-                   "NA(n)" = sum(is.na(var))
+                   "sd"  = stats::sd(var, na.rm = T)
       )}
+
+  if (length(labelled::var_label(var)) > 0) {
+    rep <- as.table(rep)
+    names(attributes(rep)$dimnames) <- c("", labelled::var_label(var))
+  }
   rownames(rep) <- NULL
   return(rep)
 }
