@@ -1,6 +1,6 @@
-# Your Package Name
+# wildeR package
 
-The `wildeR` proposes 4 functions to help you better apprend numeric variables.
+The `wildeR` package proposes 4 functions to help you better apprend numeric variables.
 
 ## Installation
 
