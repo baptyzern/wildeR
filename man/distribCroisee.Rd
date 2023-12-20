@@ -2,39 +2,41 @@
 % Please edit documentation in R/distribCroisee.R
 \name{distribCroisee}
 \alias{distribCroisee}
-\title{Distribution croisée de statistiques descriptives}
+\title{Crossed Statistical Distribution Summary}
 \usage{
-distribCroisee(var1, var2, large = FALSE)
+distribCroisee(var1, var2, precision = "summary")
 }
 \arguments{
-\item{var1}{Vecteur de données numériques.}
+\item{var1}{First vector of numeric data.}
 
-\item{var2}{Vecteur de données utilisé pour le croisement.}
+\item{var2}{Second vector of categorial data.}
 
-\item{large}{Un booléen indiquant si des statistiques supplémentaires doivent être calculées.}
+\item{precision}{A character specifying the level of precision for the statistics.
+Options: "summary" or "S", "edges" or "E", "deciles" or "D", "deciles_edges" or "D+E". Default is "summary".}
 }
 \value{
-Une table contenant des statistiques descriptives croisées.
+A data.frame object containing the selected descriptive statistics for the crossed variables.
 
-Si \code{large} est TRUE, le tableau inclut les statistiques suivantes :
+The function calculates the following statistics based on the precision option:
 \itemize{
-\item min, p01, p05, p20, p25, p40, p50, p60, p75, p80, p95, p99, max
-\item mean : Moyenne
-\item sd : Écart-type
-\item n : Nombre total d'observations
-\item NA(n) : Nombre d'observations manquantes
-\item NA(\%) : Pourcentage d'observations manquantes
-}
-
-Si \code{large} est FALSE, le tableau inclut les statistiques suivantes :
-\itemize{
-\item min, p25, p50, p75, max
-\item mean : Moyenne
-\item sd : Écart-type
-\item n : Nombre total d'observations
-\item NA(n) : Nombre d'observations manquantes
+\item "summary": min, p25, p50 (median), p75, max, mean, sd, n_valid, p_invalid
+\item "edges": min, p01, p05, p10, p25, p50, p75, p90, p95, p99, max, mean, sd, n_valid, p_invalid
+\item "deciles": min, p10, p20, p30, p40, p50, p60, p70, p80, p90, max, mean, sd, n_valid, p_invalid
+\item "deciles_edges": min, p01, p05, p10, p20, p30, p40, p50, p60, p70, p80, p90, p95, p99, max, mean, sd, n_valid, p_invalid
 }
 }
 \description{
-Cette fonction calcule différentes statistiques descriptives croisées en fonction de l'argument \code{large}.
+This function computes various descriptive statistics for two variables and their cross-tabulation.
+}
+\examples{
+# Example using the default precision ("summary")
+data1 <- rnorm(100)
+data2 <- sample(c("A", "B", "C"), 100, replace = TRUE)
+distribCroisee(data1, data2)
+
+# Example using precision "edges"
+data1 <- rnorm(100)
+data2 <- sample(c("A", "B", "C"), 100, replace = TRUE)
+distribCroisee(data1, data2, precision = "edges")
+
 }

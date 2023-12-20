@@ -2,21 +2,24 @@
 % Please edit documentation in R/graphDistrib.R
 \name{graphDistrib}
 \alias{graphDistrib}
-\title{Graphique de distribution}
+\title{Graphical Distribution Summary}
 \usage{
 graphDistrib(var)
 }
 \arguments{
-\item{var}{Vecteur de données numériques.}
+\item{var}{A vector of numeric data.}
 }
 \value{
-Un objet ggplot représentant le graphique de distribution.
+A ggplot object representing the density plot.
+
+The function also prints information about the variable, including the total number of observations,
+the number of valid (non-NA) values, and the proportion of invalid (NA) values.
 }
 \description{
-Cette fonction génère un graphique de distribution pour une variable donnée.
+This function generates a density plot to visualize the distribution of a numeric variable.
 }
 \examples{
-# Exemple d'utilisation de la fonction
+# Example using a numeric vector
 data <- rnorm(100)
 graphDistrib(data)
 

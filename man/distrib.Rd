@@ -2,37 +2,37 @@
 % Please edit documentation in R/distrib.R
 \name{distrib}
 \alias{distrib}
-\title{Distribution de statistiques descriptives}
+\title{Statistical Distribution Summary}
 \usage{
-distrib(var, large = FALSE)
+distrib(var, precision = "summary")
 }
 \arguments{
-\item{var}{Vecteur de données numériques.}
+\item{var}{Vector of numeric data.}
 
-\item{large}{Un booléen indiquant si des statistiques supplémentaires doivent être calculées.}
+\item{precision}{A character specifying the level of precision for the statistics.
+Options: "summary" or "S", "edges" or "E", "deciles" or "D", "deciles_edges" or "D+E". Default is "summary".}
 }
 \value{
-Une table contenant des statistiques descriptives.
+A data.frame object containing the selected descriptive statistics.
 
-Si \code{large} est TRUE, le tableau inclut les statistiques suivantes :
+The function calculates the following statistics based on the precision option:
 \itemize{
-\item min, p01, p05, p20, p25, p40, p50, p60, p75, p80, p95, p99, max
-\item mean : Moyenne
-\item sd : Écart-type
-\item n : Nombre total d'observations
-\item NA(n) : Nombre d'observations manquantes
-\item NA(\%) : Pourcentage d'observations manquantes
-}
-
-Si \code{large} est FALSE, le tableau inclut les statistiques suivantes :
-\itemize{
-\item min, p25, p50, p75, max
-\item mean : Moyenne
-\item sd : Écart-type
-\item n : Nombre total d'observations
-\item NA(n) : Nombre d'observations manquantes
+\item "summary": min, p25, p50 (median), p75, max, mean, sd
+\item "edges": min, p01, p05, p10, p25, p50, p75, p90, p95, p99, max, mean, sd
+\item "deciles": min, p10, p20, p30, p40, p50, p60, p70, p80, p90, max, mean, sd
+\item "deciles_edges": min, p01, p05, p10, p20, p30, p40, p50, p60, p70, p80, p90, p95, p99, max, mean, sd
 }
 }
 \description{
-Cette fonction calcule différentes statistiques descriptives en fonction de l'argument \code{large}.
+This function computes various descriptive statistics for the given variable.
+}
+\examples{
+# Example using the default precision ("summary")
+data <- rnorm(100)
+distrib(data)
+
+# Example using precision "edges"
+data <- rnorm(100)
+distrib(data, precision = "edges")
+
 }

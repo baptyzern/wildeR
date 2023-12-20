@@ -2,20 +2,24 @@
 % Please edit documentation in R/graphDistribCroisee.R
 \name{graphDistribCroisee}
 \alias{graphDistribCroisee}
-\title{Graphique de distribution croisée}
+\title{Crossed Graphical Distribution}
 \usage{
 graphDistribCroisee(var1, var2)
 }
 \arguments{
-\item{var1}{Vecteur de données numériques pour l'axe x.}
+\item{var1}{A vector of numeric data for the first variable.}
 
-\item{var2}{Vecteur de données discrètes utilisé pour le croisement et la coloration.}
+\item{var2}{A vector of categorial data for the second variable.}
 }
 \value{
-Un objet ggplot représentant le graphique de distribution croisée.
+A ggplot object representing the crossed density plot.
+
+The function also prints information about the variables, including the total number of observations,
+the number of valid observations, the proportion of invalid values, and a reminder to be aware of the
+distribution of NA values among groups.
 }
 \description{
-Cette fonction génère un graphique de distribution croisée pour une variable continue et une variable discrète.
+This function generates a crossed density plot to visualize the distribution of two variables.
 }
 \examples{
 # Exemple d'utilisation de la fonction
