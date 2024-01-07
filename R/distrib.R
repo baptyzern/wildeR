@@ -5,6 +5,8 @@
 #' @param var Vector of numeric data.
 #' @param precision A character specifying the level of precision for the statistics.
 #'   Options: "summary" or "S", "edges" or "E", "deciles" or "D", "deciles_edges" or "D+E". Default is "summary".
+#' @param getLabels Logical argument - Should the labels of the variables be displayed in a message when printing the result of the function?
+#' @param useNA When "message", shows the information about NAs in the variables in a message. When "include", shows it inside the returned data.frame.
 #'
 #' @return A data.frame object containing the selected descriptive statistics.
 #'
@@ -13,6 +15,10 @@
 #'   - "edges": min, p01, p05, p10, p25, p50, p75, p90, p95, p99, max, mean, sd
 #'   - "deciles": min, p10, p20, p30, p40, p50, p60, p70, p80, p90, max, mean, sd
 #'   - "deciles_edges": min, p01, p05, p10, p20, p30, p40, p50, p60, p70, p80, p90, p95, p99, max, mean, sd
+#'
+#'   If useNA is set to "include", additional information about NAs is included in the returned data.frame.
+#'   - "n_NA": Count of missing values
+#'   - "p_NA": Proportion of missing values
 #'
 #' @examples
 #' # Example using the default precision ("summary")
@@ -24,22 +30,20 @@
 #' distrib(data, precision = "edges")
 #'
 #' @export
-distrib <- function(var, precision = "summary") {
+distrib <- function(var, precision = "summary", getLabel = T, useNA = "message")  {
 
   n_valid <- sum(!is.na(var))
   n_total <- sum(is.na(var)) + sum(!is.na(var))
   p_invalid <- 1 - n_valid / n_total
 
-  if (length(labelled::var_label(var)) > 0) {
-    message("\n")
+  if (getLabel & length(labelled::var_label(var)) > 0) {
     message(paste0("Variable : ", labelled::var_label(var)))
   }
 
-  message("\n")
-  message(paste0("n_total in var = ", n_total))
-  message(paste0("n_valid in var = ", n_valid))
-  message(paste0("p_invalid in var = ", p_invalid))
-  message("\n")
+  if (useNA == "message") {
+    message(paste0("n_total in var = ", n_total))
+    message(paste0("n_valid in var = ", n_valid))
+    message(paste0("p_invalid in var = ", p_invalid))}
 
   if (precision == "S")   {precision <- "summary"}
   if (precision == "E")   {precision <- "edges"}
@@ -112,6 +116,13 @@ distrib <- function(var, precision = "summary") {
                  "sd"  = stats::sd(var, na.rm = TRUE)
     )
   }
+
+  if (useNA == "include") {
+    rep <- cbind(rep,
+                 "n_NA" = n_total - n_valid,
+                 "p_NA" = p_invalid)
+  }
+
   rownames(rep) <- NULL
   return(rep)
 }

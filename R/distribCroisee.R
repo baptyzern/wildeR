@@ -6,14 +6,20 @@
 #' @param var2 Second vector of categorial data.
 #' @param precision A character specifying the level of precision for the statistics.
 #'   Options: "summary" or "S", "edges" or "E", "deciles" or "D", "deciles_edges" or "D+E". Default is "summary".
+#' @param getLabels
+#' @param useNA
 #'
 #' @return A data.frame object containing the selected descriptive statistics for the crossed variables.
 #'
 #' The function calculates the following statistics based on the precision option:
 #'   - "summary": min, p25, p50 (median), p75, max, mean, sd, n_valid, p_invalid
-#'   - "edges": min, p01, p05, p10, p25, p50, p75, p90, p95, p99, max, mean, sd, n_valid, p_invalid
-#'   - "deciles": min, p10, p20, p30, p40, p50, p60, p70, p80, p90, max, mean, sd, n_valid, p_invalid
-#'   - "deciles_edges": min, p01, p05, p10, p20, p30, p40, p50, p60, p70, p80, p90, p95, p99, max, mean, sd, n_valid, p_invalid
+#'   - "edges": min, p01, p05, p10, p25, p50, p75, p90, p95, p99, max, mean, sd
+#'   - "deciles": min, p10, p20, p30, p40, p50, p60, p70, p80, p90, max, mean, sd
+#'   - "deciles_edges": min, p01, p05, p10, p20, p30, p40, p50, p60, p70, p80, p90, p95, p99, max, mean, sd
+#'
+#'   If useNA is set to "include", additional information about NAs is included in the returned data.frame.
+#'   - "n_valid": Count of non-missing values
+#'   - "p_NA": Proportion of missing values
 #'
 #' @examples
 #' # Example using the default precision ("summary")
@@ -28,7 +34,7 @@
 #'
 #' @export
 
-distribCroisee <- function(var1, var2, precision = "summary") {
+distribCroisee <- function(var1, var2, precision = "summary", getLabels = T, useNA = "message") {
 
   n_total1 <- sum(is.na(var1)) + sum(!is.na(var1))
   n_valid1 <- sum(!is.na(var1))
@@ -38,27 +44,20 @@ distribCroisee <- function(var1, var2, precision = "summary") {
   n_valid2 <- sum(!is.na(var2))
   p_invalid2 <- 1 - n_valid2/n_total2
 
-  if (length(labelled::var_label(var1)) > 0) {
-    message("\n")
-    message(paste0("Variable 1 : ", labelled::var_label(var1)))
-  }
+  if (getLabels & length(labelled::var_label(var1)) > 0) {message(paste0("Variable 1 : ", labelled::var_label(var1)))}
 
-  message("\n")
+  if (useNA == "message") {
   message(paste0("n_total in var1 = ", n_total1))
   message(paste0("n_valid in var1 = ", n_valid1))
-  message(paste0("p_invalid in var1 = ", p_invalid1))
+  message(paste0("p_invalid in var1 = ", p_invalid1))}
 
-  if (length(labelled::var_label(var2)) > 0) {
-    message("\n")
-    message(paste0("Variable 2 : ", labelled::var_label(var2)))
-  }
-  message("\n")
+  if (getLabels & length(labelled::var_label(var2)) > 0) {message(paste0("Variable 2 : ", labelled::var_label(var2)))}
+
+  if (useNA == "message") {
   message(paste0("n_total in var2 = ", n_total2))
   message(paste0("n_valid in var2 = ", n_valid2))
   message(paste0("p_invalid in var2 = ", p_invalid2))
-  message("\n")
-  message("Be aware of the distribution of NA among groups!")
-  message("\n")
+  message("Be aware of the distribution of NA among groups!")}
 
   if (precision == "S")   {precision <- "summary"}
   if (precision == "E")   {precision <- "edges"}
@@ -73,9 +72,7 @@ distribCroisee <- function(var1, var2, precision = "summary") {
                  "p75" = tapply(var1, var2, stats::quantile, probs = 0.75, na.rm = T, type = 1),
                  "max" = tapply(var1, var2, stats::quantile, probs = 1.00, na.rm = T),
                  "mean"= tapply(var1, var2, base::mean, na.rm = T),
-                 "sd"  = tapply(var1, var2, stats::sd, na.rm = T),
-                 "n_valid" = tapply(var1, var2, function(x) sum(!is.na(x))),
-                 "p_invald" = tapply(var1, var2, function(x) sum(is.na(x))/length(x))
+                 "sd"  = tapply(var1, var2, stats::sd, na.rm = T)
                  )
     }
 
@@ -90,9 +87,7 @@ distribCroisee <- function(var1, var2, precision = "summary") {
                  "p99" = tapply(var1, var2, stats::quantile, probs = 0.99, na.rm = T, type = 1),
                  "max" = tapply(var1, var2, stats::quantile, probs = 1.00, na.rm = T),
                  "mean"= tapply(var1, var2, base::mean, na.rm = T),
-                 "sd"  = tapply(var1, var2, stats::sd, na.rm = T),
-                 "n_valid" = tapply(var1, var2, function(x) sum(!is.na(x))),
-                 "p_invald" = tapply(var1, var2, function(x) sum(is.na(x))/length(x))
+                 "sd"  = tapply(var1, var2, stats::sd, na.rm = T)
                  )
   }
 
@@ -109,9 +104,7 @@ distribCroisee <- function(var1, var2, precision = "summary") {
                  "p90" = tapply(var1, var2, stats::quantile, probs = 0.90, na.rm = T, type = 1),
                  "max" = tapply(var1, var2, stats::quantile, probs = 1.00, na.rm = T),
                  "mean"= tapply(var1, var2, base::mean, na.rm = T),
-                 "sd"  = tapply(var1, var2, stats::sd, na.rm = T),
-                 "n_valid" = tapply(var1, var2, function(x) sum(!is.na(x))),
-                 "p_invald" = tapply(var1, var2, function(x) sum(is.na(x))/length(x))
+                 "sd"  = tapply(var1, var2, stats::sd, na.rm = T)
     )
   }
 
@@ -132,14 +125,16 @@ distribCroisee <- function(var1, var2, precision = "summary") {
                  "p99" = tapply(var1, var2, stats::quantile, probs = 0.99, na.rm = T, type = 1),
                  "max" = tapply(var1, var2, stats::quantile, probs = 1.00, na.rm = T),
                  "mean"= tapply(var1, var2, base::mean, na.rm = T),
-                 "sd"  = tapply(var1, var2, stats::sd, na.rm = T),
-                 "n_valid" = tapply(var1, var2, function(x) sum(!is.na(x))),
-                 "p_invald" = tapply(var1, var2, function(x) sum(is.na(x))/length(x))
-                  )
+                 "sd"  = tapply(var1, var2, stats::sd, na.rm = T)
+                 )
   }
 
+  if (useNA == "include") {
+    rep <- cbind(rep,
+                 "n_valid" = tapply(var1, var2, function(x) {sum(!is.na(x))}),
+                 "p_NA"    = tapply(var1, var2, function(x) {sum(is.na(x))/length(x)})
+    )
+  }
 
-
-  rep <- data.frame(rep)
   return(rep)
 }
