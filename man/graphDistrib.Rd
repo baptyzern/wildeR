@@ -4,16 +4,24 @@
 \alias{graphDistrib}
 \title{Graphical Distribution Summary}
 \usage{
-graphDistrib(var)
+graphDistrib(var, output = "graph", getLabel = T, warnNA = T, ...)
 }
 \arguments{
 \item{var}{A vector of numeric data.}
+
+\item{output}{Character specifying the output type. Options: "graph" for a full ggplot object, "layer" to add the density layer to an existing plot.}
+
+\item{getLabel}{Logical argument - Should the label of the variable be displayed in a message when printing the result of the function?}
+
+\item{warnNA}{Logical argument - Should information about NAs be printed in a message?}
+
+\item{...}{Additional arguments to be passed to the \code{geom_density} function from ggplot2.}
 }
 \value{
-A ggplot object representing the density plot.
+A ggplot object representing the density plot if output is "graph". If output is "layer", it adds the density layer to an existing plot.
 
 The function also prints information about the variable, including the total number of observations,
-the number of valid (non-NA) values, and the proportion of invalid (NA) values.
+the number of valid (non-NA) values, and the proportion of invalid (NA) values, if warnNA is set to TRUE.
 }
 \description{
 This function generates a density plot to visualize the distribution of a numeric variable.

@@ -5,7 +5,7 @@
 #' @param var Vector of numeric data.
 #' @param precision A character specifying the level of precision for the statistics.
 #'   Options: "summary" or "S", "edges" or "E", "deciles" or "D", "deciles_edges" or "D+E". Default is "summary".
-#' @param getLabels Logical argument - Should the labels of the variables be displayed in a message when printing the result of the function?
+#' @param getLabel Logical argument - Should the labels of the variables be displayed in a message when printing the result of the function?
 #' @param useNA When "message", shows the information about NAs in the variables in a message. When "include", shows it inside the returned data.frame.
 #'
 #' @return A data.frame object containing the selected descriptive statistics.

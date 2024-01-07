@@ -4,12 +4,27 @@
 \alias{graphDistribCroisee}
 \title{Crossed Graphical Distribution}
 \usage{
-graphDistribCroisee(var1, var2)
+graphDistribCroisee(
+  var1,
+  var2,
+  output = "graph",
+  getLabels = T,
+  warnNA = T,
+  ...
+)
 }
 \arguments{
 \item{var1}{A vector of numeric data for the first variable.}
 
 \item{var2}{A vector of categorial data for the second variable.}
+
+\item{output}{Specifies the output type. Options: "graph" (default) or "layer".}
+
+\item{getLabels}{Logical. If TRUE, includes variable labels in the output messages.}
+
+\item{warnNA}{Logical. If TRUE, includes warnings about NA values in the output messages.}
+
+\item{...}{Additional arguments to be passed to ggplot function.}
 }
 \value{
 A ggplot object representing the crossed density plot.
@@ -22,7 +37,7 @@ distribution of NA values among groups.
 This function generates a crossed density plot to visualize the distribution of two variables.
 }
 \examples{
-# Exemple d'utilisation de la fonction
+# Example using the function
 data1 <- rnorm(100)
 data2 <- sample(c("A", "B", "C"), 100, replace = TRUE)
 graphDistribCroisee(data1, data2)
