@@ -4,4 +4,8 @@
 #' @export
 #'
 #' @examples
-guillemetsFR <- function() {message("Here comes the guillemets : · « ... » ·")}
+guillemetsFR <- function(type = "none") {
+
+  if (type == "in") {return("« ")}
+  if (type == "out") {return(" »")}
+  message("Here comes the guillemets : · « ... » ·")}

@@ -2,9 +2,12 @@
 % Please edit documentation in R/pointmedian.R
 \name{pointmedian}
 \alias{pointmedian}
+\alias{pm}
 \title{Point médian}
 \usage{
 pointmedian()
+
+pm()
 }
 \description{
 Point médian

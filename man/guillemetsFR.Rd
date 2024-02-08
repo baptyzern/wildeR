@@ -2,10 +2,10 @@
 % Please edit documentation in R/guillemetsFR.R
 \name{guillemetsFR}
 \alias{guillemetsFR}
-\title{Guillemêts français}
+\title{Guillemets français}
 \usage{
-guillemetsFR()
+guillemetsFR(type = "none")
 }
 \description{
-Guillemêts français
+Guillemets français
 }
