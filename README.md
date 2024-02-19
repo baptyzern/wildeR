@@ -7,7 +7,7 @@ The `wildeR` package proposes 4 functions to help you better apprehend numeric v
 You can install the package from GitHub using the `devtools` package:
 
 ```
-devtools::install_github("bouh40/wildeR")
+devtools::install_github("baptyzern/wildeR")
 ```
 
 ## Functions
