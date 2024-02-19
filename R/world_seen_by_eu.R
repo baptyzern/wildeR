@@ -1,0 +1,23 @@
+#' World seen the European Union
+#'
+#'
+#' @format ## `world_seen_by_eu`
+#' A data frame with 257 rows and 12 columns:
+#' \describe{
+#'   \item{ISO2_CODE}{2-letter ISO country code}
+#'   \item{ISO3_CODE}{3-letter ISO country code}
+#'   \item{CNTR_NAME}{Country name in original language}
+#'   \item{NAME_ENGL}{Country name in English}
+#'   \item{NAME_FREN}{Country name in French}
+#'   \item{NAME_GERM}{Country name in German}
+#'   \item{SVRG_UN}{Sovereign of the country recognized by the United Nations}
+#'   \item{CAPT}{Capital city of the country}
+#'   \item{EU_STAT}{Membership of the country to the European Union}
+#'   \item{EFTA_STAT}{Membership of the country to the European Free-Trade Association}
+#'   \item{CC_STAT}{Candidate country status recognized by the European Union}
+#'   \item{geometry}{Geometric data (multi-polygon) at a 60M precision}
+#'   ...
+#'
+#' @source Data version 2020 <https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/countries>
+#' }
+"world_seen_by_eu"

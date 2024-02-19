@@ -1,2 +1,4 @@
 ^wildeR\.Rproj$
 ^\.Rproj\.user$
+data_building/
+^data-raw$

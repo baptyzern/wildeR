@@ -4,14 +4,21 @@
 \alias{country_name}
 \title{Conversion entre nom complet de pays et leur code ISO2}
 \usage{
-country_name(list, from = c("name", "iso2"), lang = "fr")
+country_name(
+  list,
+  from = c("name_fr", "name_en", "name_de", "iso2", "iso3"),
+  to = c("name_fr", "name_en", "name_de", "iso2", "iso3"),
+  drop_levels = FALSE
+)
 }
 \arguments{
 \item{list}{Vecteur de classe caractère à convertir}
 
-\item{from}{Point de départ de la conversion (name, ou iso2)}
+\item{from}{Point de départ de la conversion (name_fr, name_en, name_de iso2", iso3)}
 
-\item{lang}{Langue du nom complet}
+\item{to}{Point d'arrivée de la conversion (name_fr, name_en, name_de iso2", iso3)}
+
+\item{drop_levels}{Garder les pays en trop ? par défaut, FALSE}
 }
 \description{
 Conversion entre nom complet de pays et leur code ISO2

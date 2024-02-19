@@ -5,9 +5,9 @@
 \alias{pm}
 \title{Point médian}
 \usage{
-pointmedian()
+pointmedian(full = TRUE)
 
-pm()
+pm(full = TRUE)
 }
 \description{
 Point médian
