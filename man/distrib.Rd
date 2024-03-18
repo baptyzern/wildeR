@@ -4,10 +4,19 @@
 \alias{distrib}
 \title{Statistical Distribution Summary}
 \usage{
-distrib(var, precision = "summary", getLabel = T, useNA = "message")
+distrib(
+  var,
+  var2 = NA,
+  precision = "summary",
+  getLabel = T,
+  useNA = "message",
+  filter = NA
+)
 }
 \arguments{
-\item{var}{Vector of numeric data.}
+\item{var}{A vector of numeric data.}
+
+\item{var2}{A vector of qualitative data (if you desire to compute statistics by groups).}
 
 \item{precision}{A character specifying the level of precision for the statistics.
 Options: "summary" or "S", "edges" or "E", "deciles" or "D", "deciles_edges" or "D+E". Default is "summary".}
@@ -15,6 +24,8 @@ Options: "summary" or "S", "edges" or "E", "deciles" or "D", "deciles_edges" or 
 \item{getLabel}{Logical argument - Should the labels of the variables be displayed in a message when printing the result of the function?}
 
 \item{useNA}{When "message", shows the information about NAs in the variables in a message. When "include", shows it inside the returned data.frame.}
+
+\item{filter}{A logical vector used to filter \code{var} (and \code{var2}). Must be the same lenght.}
 }
 \value{
 A data.frame object containing the selected descriptive statistics.
@@ -38,11 +49,20 @@ This function computes various descriptive statistics for the given variable.
 }
 \examples{
 # Example using the default precision ("summary")
-data <- rnorm(100)
-distrib(data)
+data_ex <- rnorm(100)
+distrib(data_ex)
 
 # Example using precision "edges"
-data <- rnorm(100)
-distrib(data, precision = "edges")
+data_ex <- rnorm(100)
+distrib(data_ex, precision = "edges")
+
+# Example using the `var2` argument
+data_ex1 <- rnorm(100)
+data_ex2 <- sample(c("A", "B", "C"), 100, replace = TRUE)
+distrib(data_ex1, data_ex2)
+
+# Example using the `filter` argument
+data_ex <- rnorm(100)
+distrib(data_ex, filter = data_ex > 0)
 
 }

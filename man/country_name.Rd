@@ -8,17 +8,17 @@ country_name(
   list,
   from = c("name_fr", "name_en", "name_de", "iso2", "iso3"),
   to = c("name_fr", "name_en", "name_de", "iso2", "iso3"),
-  drop_levels = FALSE
+  drop_levels = TRUE
 )
 }
 \arguments{
 \item{list}{Vecteur de classe caractère à convertir}
 
-\item{from}{Point de départ de la conversion (name_fr, name_en, name_de iso2", iso3)}
+\item{from}{Point de départ de la conversion (name_fr, name_en, name_de, iso2, iso3)}
 
-\item{to}{Point d'arrivée de la conversion (name_fr, name_en, name_de iso2", iso3)}
+\item{to}{Point d'arrivée de la conversion (name_fr, name_en, name_de, iso2, iso3)}
 
-\item{drop_levels}{Garder les pays en trop ? par défaut, FALSE}
+\item{drop_levels}{Enlever les pays en trop ? par défaut, TRUE}
 }
 \description{
 Conversion entre nom complet de pays et leur code ISO2

@@ -4,18 +4,26 @@
 \alias{graphDistrib}
 \title{Graphical Distribution Summary}
 \usage{
-graphDistrib(var, output = "graph", getLabel = T, warnNA = T, ...)
+graphDistrib(
+  var,
+  var2 = NA,
+  filter = NA,
+  output = "graph",
+  getLabels = TRUE,
+  warnNA = TRUE,
+  ...
+)
 }
 \arguments{
 \item{var}{A vector of numeric data.}
 
 \item{output}{Character specifying the output type. Options: "graph" for a full ggplot object, "layer" to add the density layer to an existing plot.}
 
-\item{getLabel}{Logical argument - Should the label of the variable be displayed in a message when printing the result of the function?}
-
 \item{warnNA}{Logical argument - Should information about NAs be printed in a message?}
 
 \item{...}{Additional arguments to be passed to the \code{geom_density} function from ggplot2.}
+
+\item{getLabel}{Logical argument - Should the label of the variable be displayed in a message when printing the result of the function?}
 }
 \value{
 A ggplot object representing the density plot if output is "graph". If output is "layer", it adds the density layer to an existing plot.
@@ -28,7 +36,20 @@ This function generates a density plot to visualize the distribution of a numeri
 }
 \examples{
 # Example using a numeric vector
-data <- rnorm(100)
-graphDistrib(data)
+data_ex <- rnorm(100)
+graphDistrib(data_ex)
 
+# Example using the `var2` argument
+data_ex1 <- rnorm(100)
+data_ex2 <- sample(c("A", "B", "C"), 100, replace = TRUE)
+graphDistrib(data_ex1, data_ex2)
+
+# Example using the `filter` argument
+data_ex <- rnorm(100)
+graphDistrib(data_ex, filter = data_ex > 0)
+
+# Example using the `output` argument set to layer
+library(ggplot2)
+data_ex <- rnorm(100)
+ggplot() + graphDistrib(data_ex, filter = data_ex > 0, output = "layer")
 }
