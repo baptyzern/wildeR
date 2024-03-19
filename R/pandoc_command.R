@@ -12,8 +12,8 @@
 #' # Pandoc only knows about markdown, but qmd file use the same syntax as markdown
 #' # so there is no issue when outputting to a qmd file.
 #' # pandoc_command(input_file = "blabla.docx", output_format = "markdown", output_file = "blabla.qmd")
-#' # shell(pandoc_command(input_file = "blabla.docx", output_format = "markdown", output_file = "blabla.qmd"))
-#'
+#' # system(pandoc_command(input_file = "blabla.docx", output_format = "markdown", output_file = "blabla.qmd"))
+#' # pandoc_command(input_file = "blabla.docx", output_format = "markdown", output_file = "blabla.qmd") |> system()
 #' @export
 
 pandoc_command <- function(input_file, input_format = NULL, output_format = NULL, output_file = NULL) {
