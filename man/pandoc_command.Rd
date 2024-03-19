@@ -7,7 +7,7 @@
 pandoc_command(
   input_file,
   input_format = NULL,
-  output_format,
+  output_format = NULL,
   output_file = NULL
 )
 }

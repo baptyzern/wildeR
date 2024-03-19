@@ -15,9 +15,9 @@ A data frame with 12 rows and 3 columns:
 ...
 }
 }
+}
 \source{
 Data version 2020 \url{https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/countries}
-}
 }
 \usage{
 variables_world_seen_by_eu

@@ -27,7 +27,9 @@ A nice and pretty data frame with column labels
 Apply labels to a data frame using another data frame
 }
 \examples{
-tt <- apply_labels_from_df(world_seen_by_eu[, -12], variables_world_seen_by_eu, col_label = "VariableLabel_FR")
+tt <- apply_labels_from_df(world_seen_by_eu[, -12],
+                           variables_world_seen_by_eu,
+                           col_label = "VariableLabel_FR")
 tt
 labelled::var_label(tt)
 }

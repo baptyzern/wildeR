@@ -16,7 +16,7 @@
 #'
 #' @export
 
-pandoc_command <- function(input_file, input_format = NULL, output_format, output_file = NULL) {
+pandoc_command <- function(input_file, input_format = NULL, output_format = NULL, output_file = NULL) {
 
   if (is.null(output_format) & is.null(output_file)) {stop("No output format nor output file was provided.")}
 
