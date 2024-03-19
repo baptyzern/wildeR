@@ -6,7 +6,7 @@
 #' @param var2 A vector of qualitative data (if you desire to compute statistics by groups).
 #' @param precision A character specifying the level of precision for the statistics.
 #'   Options: "summary" or "S", "edges" or "E", "deciles" or "D", "deciles_edges" or "D+E". Default is "summary".
-#' @param getLabel Logical argument - Should the labels of the variables be displayed in a message when printing the result of the function?
+#' @param getLabels Logical argument - Should the labels of the variables be displayed in a message when printing the result of the function?
 #' @param useNA When "message", shows the information about NAs in the variables in a message. When "include", shows it inside the returned data.frame.
 #' @param filter A logical vector used to filter `var` (and `var2`). Must be the same lenght.
 #'
@@ -18,7 +18,7 @@
 #'   - "deciles": min, p10, p20, p30, p40, p50, p60, p70, p80, p90, max, mean, sd
 #'   - "deciles_edges": min, p01, p05, p10, p20, p30, p40, p50, p60, p70, p80, p90, p95, p99, max, mean, sd
 #'
-#'   If useNA is set to "include", additional information about NAs is included in the returned data.frame.
+#' If useNA is set to "include", additional information about NAs is included in the returned data.frame.
 #'   - "n_NA": Count of missing values
 #'   - "p_NA": Proportion of missing values
 #'
@@ -41,7 +41,7 @@
 #' distrib(data_ex, filter = data_ex > 0)
 #'
 #' @export
-distrib <- function(var, var2 = NA, precision = "summary", getLabel = T, useNA = "message", filter = NA)  {
+distrib <- function(var, var2 = NA, precision = "summary", getLabels = T, useNA = "message", filter = NA)  {
 
   if (all(is.na(var2))) {
 
@@ -56,7 +56,7 @@ distrib <- function(var, var2 = NA, precision = "summary", getLabel = T, useNA =
     n_total <- sum(is.na(var)) + sum(!is.na(var))
     p_invalid <- 1 - n_valid / n_total
 
-    if (getLabel & length(labelled::var_label(var)) > 0) {
+    if (getLabels & length(labelled::var_label(var)) > 0) {
       message(paste0("Variable : ", labelled::var_label(var)))
     }
 
@@ -165,14 +165,14 @@ distrib <- function(var, var2 = NA, precision = "summary", getLabel = T, useNA =
       n_valid2 <- sum(!is.na(var2))
       p_invalid2 <- 1 - n_valid2/n_total2
 
-      if (getLabel & length(labelled::var_label(var1)) > 0) {message(paste0("Variable 1 : ", labelled::var_label(var1)))}
+      if (getLabels & length(labelled::var_label(var1)) > 0) {message(paste0("Variable 1 : ", labelled::var_label(var1)))}
 
       if (useNA == "message") {
         message(paste0("n_total in var1 = ", n_total1))
         message(paste0("n_valid in var1 = ", n_valid1))
         message(paste0("p_invalid in var1 = ", p_invalid1))}
 
-      if (getLabel & length(labelled::var_label(var2)) > 0) {message(paste0("Variable 2 : ", labelled::var_label(var2)))}
+      if (getLabels & length(labelled::var_label(var2)) > 0) {message(paste0("Variable 2 : ", labelled::var_label(var2)))}
 
       if (useNA == "message") {
         message(paste0("n_total in var2 = ", n_total2))

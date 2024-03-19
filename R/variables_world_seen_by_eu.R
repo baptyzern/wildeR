@@ -7,8 +7,7 @@
 #'   \item{VariableLabel_EN}{Label of the variable in English}
 #'   \item{VariableLabel_FR}{Label of the variable in French}
 #'   ...
-#'
-#' @source Data version 2020 <https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/countries>
 #' }
+#'@source Data version 2020 <https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/countries>
 #'
 "variables_world_seen_by_eu"

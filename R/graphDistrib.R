@@ -3,9 +3,11 @@
 #' This function generates a density plot to visualize the distribution of a numeric variable.
 #'
 #' @param var A vector of numeric data.
+#' @param var2 A vector of qualitative data (if you desire to compute statistics by groups).
 #' @param output Character specifying the output type. Options: "graph" for a full ggplot object, "layer" to add the density layer to an existing plot.
-#' @param getLabel Logical argument - Should the label of the variable be displayed in a message when printing the result of the function?
+#' @param getLabels Logical argument - Should the labels of the variables be displayed in a message when printing the result of the function?
 #' @param warnNA Logical argument - Should information about NAs be printed in a message?
+#' @param filter A logical vector used to filter `var` (and `var2`). Must be the same lenght.
 #' @param ... Additional arguments to be passed to the `geom_density` function from ggplot2.
 #'
 #' @return A ggplot object representing the density plot if output is "graph". If output is "layer", it adds the density layer to an existing plot.

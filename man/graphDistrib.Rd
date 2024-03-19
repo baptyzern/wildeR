@@ -17,13 +17,17 @@ graphDistrib(
 \arguments{
 \item{var}{A vector of numeric data.}
 
+\item{var2}{A vector of qualitative data (if you desire to compute statistics by groups).}
+
+\item{filter}{A logical vector used to filter \code{var} (and \code{var2}). Must be the same lenght.}
+
 \item{output}{Character specifying the output type. Options: "graph" for a full ggplot object, "layer" to add the density layer to an existing plot.}
+
+\item{getLabels}{Logical argument - Should the labels of the variables be displayed in a message when printing the result of the function?}
 
 \item{warnNA}{Logical argument - Should information about NAs be printed in a message?}
 
 \item{...}{Additional arguments to be passed to the \code{geom_density} function from ggplot2.}
-
-\item{getLabel}{Logical argument - Should the label of the variable be displayed in a message when printing the result of the function?}
 }
 \value{
 A ggplot object representing the density plot if output is "graph". If output is "layer", it adds the density layer to an existing plot.

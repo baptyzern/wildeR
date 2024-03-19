@@ -8,7 +8,7 @@ distrib(
   var,
   var2 = NA,
   precision = "summary",
-  getLabel = T,
+  getLabels = T,
   useNA = "message",
   filter = NA
 )
@@ -21,7 +21,7 @@ distrib(
 \item{precision}{A character specifying the level of precision for the statistics.
 Options: "summary" or "S", "edges" or "E", "deciles" or "D", "deciles_edges" or "D+E". Default is "summary".}
 
-\item{getLabel}{Logical argument - Should the labels of the variables be displayed in a message when printing the result of the function?}
+\item{getLabels}{Logical argument - Should the labels of the variables be displayed in a message when printing the result of the function?}
 
 \item{useNA}{When "message", shows the information about NAs in the variables in a message. When "include", shows it inside the returned data.frame.}
 

@@ -1,5 +1,5 @@
 #' Guillemets français
-#'
+#' type is "in" or "out" depending if it is opening or closing.
 #' @return
 #' @export
 #'

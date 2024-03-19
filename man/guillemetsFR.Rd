@@ -2,10 +2,12 @@
 % Please edit documentation in R/guillemetsFR.R
 \name{guillemetsFR}
 \alias{guillemetsFR}
-\title{Guillemets français}
+\title{Guillemets français
+type is "in" or "out" depending if it is opening or closing.}
 \usage{
 guillemetsFR(type = "none")
 }
 \description{
 Guillemets français
+type is "in" or "out" depending if it is opening or closing.
 }

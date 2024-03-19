@@ -17,7 +17,7 @@
 #'   - "deciles": min, p10, p20, p30, p40, p50, p60, p70, p80, p90, max, mean, sd
 #'   - "deciles_edges": min, p01, p05, p10, p20, p30, p40, p50, p60, p70, p80, p90, p95, p99, max, mean, sd
 #'
-#'   If useNA is set to "include", additional information about NAs is included in the returned data.frame.
+#' If useNA is set to "include", additional information about NAs is included in the returned data.frame.
 #'   - "n_valid": Count of non-missing values
 #'   - "p_NA": Proportion of missing values
 #'
