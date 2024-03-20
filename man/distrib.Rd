@@ -6,11 +6,11 @@
 \usage{
 distrib(
   var,
-  var2 = NA,
+  var2 = NULL,
   precision = "summary",
   getLabels = T,
   useNA = "message",
-  filter = NA
+  filter = NULL
 )
 }
 \arguments{

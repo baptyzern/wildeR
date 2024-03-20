@@ -23,3 +23,8 @@ country_name(
 \description{
 Conversion entre nom complet de pays et leur code ISO2
 }
+\examples{
+country_name(c("FR", "PT"), from = "iso2", to = "name_en")
+
+
+}

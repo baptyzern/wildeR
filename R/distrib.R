@@ -41,11 +41,11 @@
 #' distrib(data_ex, filter = data_ex > 0)
 #'
 #' @export
-distrib <- function(var, var2 = NA, precision = "summary", getLabels = T, useNA = "message", filter = NA)  {
+distrib <- function(var, var2 = NULL, precision = "summary", getLabels = T, useNA = "message", filter = NULL)  {
 
-  if (all(is.na(var2))) {
+  if (is.null(var2)) {
 
-    if (!all(is.na(filter))) {
+    if (!is.null(filter)) {
       if (length(filter) != length(var)) {stop("filter is not the same length as var.")}
       message(paste0("Filtering ", length(var) - length(var[filter]), " observations.\n"))
       var <- var[filter]
@@ -149,7 +149,7 @@ distrib <- function(var, var2 = NA, precision = "summary", getLabels = T, useNA 
       var1 <- var
 
 
-      if (!all(is.na(filter))) {
+      if (!is.null(filter)) {
         if (length(filter) != length(var1)) {stop("filter is not the same length as var.")}
         if (length(filter) != length(var1)) {stop("filter is not the same length as var.")}
         message(paste0("Filtered ", length(var1) - length(var1[filter]), " observations. \n"))

@@ -37,16 +37,16 @@
 #' @import ggplot2
 #' @export
 
-graphDistrib <- function(var, var2 = NA, filter = NA, output = "graph", getLabels = TRUE, warnNA = TRUE, ...) {
+graphDistrib <- function(var, var2 = NULL, filter = NULL, output = "graph", getLabels = TRUE, warnNA = TRUE, ...) {
 
 # Checking if var2 exists (=/= NA)
-  if (all(is.na(var2))) {
+  if (is.null(var2)) {
 
   # Case 1 - var2 doesn't exist, or is filled with NA only
 
     # If filter is not filled with only NA, filter is applied
 
-    if (!all(is.na(filter))) {
+    if (!is.null(filter)) {
 
       # Error is displayed when filter is not the same length as var.
       if (length(filter) != length(var)) {stop("filter is not the same length as var.")}
@@ -86,7 +86,7 @@ graphDistrib <- function(var, var2 = NA, filter = NA, output = "graph", getLabel
     var1 <- var
 
 
-    if (!all(is.na(filter))) {
+    if (!is.null(filter)) {
       if (length(filter) != length(var1)) {stop("filter is not the same length as var.")}
       if (length(filter) != length(var1)) {stop("filter is not the same length as var.")}
       message(paste0("Filtered ", length(var1) - length(var1[filter]), " observations. \n"))

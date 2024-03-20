@@ -6,8 +6,8 @@
 \usage{
 graphDistrib(
   var,
-  var2 = NA,
-  filter = NA,
+  var2 = NULL,
+  filter = NULL,
   output = "graph",
   getLabels = TRUE,
   warnNA = TRUE,

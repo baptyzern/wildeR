@@ -5,6 +5,10 @@
 #' @param to Point d'arrivée de la conversion (name_fr, name_en, name_de, iso2, iso3)
 #' @param drop_levels Enlever les pays en trop ? par défaut, TRUE
 #'
+#' @examples
+#' country_name(c("FR", "PT"), from = "iso2", to = "name_en")
+#'
+#'
 #' @export
 
 
