@@ -2,7 +2,7 @@
 
 The `wildeR` package's main purpose is to proposes functions to help you better apprehend numeric variables.
 
-It also adds random functions that I needed on some ... random projects
+It also adds random functions that I needed for some ... random projects
 
 ## Installation
 
@@ -100,11 +100,17 @@ The idea behind this function was to provide a tool to easily convert `docx` (Wo
 # It is possible to force the file extension of the output.
 # Pandoc only knows about markdown, but qmd file use the same syntax as markdown
 # so there is no issue when outputting to a qmd file.
-pandoc_command(input_file = "blabla.docx", output_format = "markdown", output_file = "blabla.qmd")
+pandoc_command(input_file = "blabla.docx",
+               output_format = "markdown", output_file = "blabla.qmd")
 
-# You can combine the pandoc_command call with the system() function to send the output directly to the terminal.
-system(pandoc_command(input_file = "blabla.docx", output_format = "markdown", output_file = "blabla.qmd"))
-pandoc_command(input_file = "blabla.docx", output_format = "markdown", output_file = "blabla.qmd") |> system()
+# You can combine the pandoc_command call with the system() function
+# to send the output directly to the terminal.
+system(
+  pandoc_command(input_file = "blabla.docx",
+                 output_format = "markdown", output_file = "blabla.qmd"))
+pandoc_command(input_file = "blabla.docx",
+               output_format = "markdown", output_file = "blabla.qmd") |>
+  system()
 ```
 
 ### country_name
@@ -158,8 +164,8 @@ Mes camarades étudiant`r pm(full = F)`es de QESS sont des personnes fantastique
 guillemetsFR()
 
 # To keep it short, inside an inserted chunk
-L'atelier `r guillemetsFR("in")`QESStionnaire`guillemetsFR("out")` a fait une enquête sur la répartition des tâches domestiques et parentales
---> L'atelier « QESStionnaire » a fait une enquête sur la répartition des tâches domestiques et parentales
+L'atelier `r guillemetsFR("in")`QESStionnaire`guillemetsFR("out")` des QESS
+--> L'atelier « QESStionnaire » des QESS
 ```
 
 
