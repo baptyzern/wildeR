@@ -56,14 +56,15 @@ pandoc_command <- function(input_file, input_format = NULL, output_format = NULL
   # Exemple pandoc test1.md -f markdown -t latex -s -o test1.tex
 
   shell_command <- paste0(
-    "pandoc ",
+    'pandoc "',
     input_file,
-    " -f ",
+    '" -f ',
     input_format_command,
-    " -t ",
+    ' -t ',
     output_format_command,
-    " -s -o ",
-    output_file)
+    ' -s -o "',
+    output_file,
+    '"')
 
   return(shell_command)
 }
