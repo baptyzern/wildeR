@@ -48,7 +48,7 @@ distrib <- function(var, var2 = NULL, precision = "summary", getLabels = T, useN
     if (!is.null(filter)) {
       if (length(filter) != length(var)) {stop("filter is not the same length as var.")}
       message(paste0("Filtering ", length(var) - length(var[filter]), " observations.\n"))
-      var <- var[filter]
+      var <- var[filter] |> labelled::`var_label<-`(labelled::var_label(var))
     }
 
 
@@ -150,11 +150,16 @@ distrib <- function(var, var2 = NULL, precision = "summary", getLabels = T, useN
 
 
       if (!is.null(filter)) {
-        if (length(filter) != length(var1)) {stop("filter is not the same length as var.")}
-        if (length(filter) != length(var1)) {stop("filter is not the same length as var.")}
+        if (length(filter) != length(var1)) {stop("filter is not the same length as var1.")}
+        if (length(filter) != length(var2)) {stop("filter is not the same length as var2.")}
         message(paste0("Filtered ", length(var1) - length(var1[filter]), " observations. \n"))
-        var1 <- var1[filter]
-        var2 <- var2[filter]
+
+        if (!is.null(labelled::var_label(var1))) {
+          var1 <- var1[filter] |> labelled::`var_label<-`(labelled::var_label(var1))
+        } else {var1 <- var1[filter]}
+        if (!is.null(labelled::var_label(var2))) {
+          var2 <- var2[filter] |> labelled::`var_label<-`(labelled::var_label(var2))
+        } else {var2 <- var2[filter]}
       }
 
       n_total1 <- sum(is.na(var1)) + sum(!is.na(var1))

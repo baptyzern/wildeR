@@ -2,3 +2,5 @@
 ^\.Rproj\.user$
 data_building/
 ^data-raw$
+.Rhistory
+-YZERNB-2022.Rhistory
