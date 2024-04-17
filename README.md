@@ -113,6 +113,22 @@ pandoc_command(input_file = "blabla.docx",
   system()
 ```
 
+
+### networkCreatoR
+
+This function starts a `shiny` interface to create a network from premade nodes 
+and edges, or to build it from scratches.
+
+It is highly experimental for now: you may experience crashes that ruin your
+progress, so be sure to save it regularly by downloading the `csv` or `rds` files
+of your nodes and edges.
+
+
+```         
+# To start the shiny app, just type:
+networkCreatoR()
+```
+
 ### country_name
 
 This function helps you convert country name in English, French or German into their 2 or 3 letter ISO codes, and vice versa.
@@ -168,7 +184,6 @@ L'atelier `r guillemetsFR("in")`QESStionnaire`guillemetsFR("out")` des QESS
 --> L'atelier « QESStionnaire » des QESS
 ```
 
-
 ### var_flagged
 
 `var_flagged` was designed to work with flagged variables.
@@ -183,3 +198,25 @@ flag_meaning <- c("Missing" = -1, "Not applicable" = -2)
 var_flagged(x = sample$variable_x, x_flag = sample$variable_x_F,
             flag_meaning = c("Missing" = -1, "Not applicable" = -2))
 ```
+
+### wtd.freq
+
+`wtd.freq` was designed on `freq` and `wtd.table` functions from `questionr` 
+package and only serves a purpose: to remind us that behind weights, there are
+individuals that answered a survey.
+
+It is still under development.
+
+```         
+# Example
+sample <- data.frame(
+  variable_x = c("Male", "Female", "Female", NA, NA, "Male", "Female", "Male"),
+  weights =         c(1,        1,        3,  1,  2,      4,        1,    NA))
+wtd.freq(sample$variable_x, sample$weights)
+```
+
+
+### wtd.distrib
+
+`wtd.distrib` is planned to be developed soon, with the goal to establish a 
+version of the `distrib` function that works with weighted data. 
