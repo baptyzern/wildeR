@@ -13,7 +13,7 @@ networkCreatoR <- function() {
   # in case the user edits them later.
   init.nodes.df = data.frame(id = c("foo", "bar"),
                              label = c("Foo", "Bar"),
-                             group = c(NA, NA),
+                             group = c(NA, NA) |> as.character(),
                              value = 1,
                              color = c("red", "darkgreen"),
                              stringsAsFactors = F)
@@ -21,8 +21,8 @@ networkCreatoR <- function() {
                              from = "foo",
                              to = "bar",
                              width = 1,
-                             type = NA,
-                             label = NA,
+                             type = NA |> as.character(),
+                             label = NA |> as.character(),
                              stringsAsFactors = F)
 
   ui <- fluidPage(
@@ -67,7 +67,7 @@ networkCreatoR <- function() {
         visOptions(manipulation = list(enabled = TRUE,
                                        editNodeCols = c("id", "label", "group", "color", "value"),
                                        editEdgeCols = c("id", "label", "width", "type"),
-                                       addNodeCols = c("id", "label", "group", "width", "color")))
+                                       addNodeCols = c("id", "label", "group", "value", "color")))
     })
 
     # If the user edits the graph, this shows up in
@@ -174,12 +174,12 @@ networkCreatoR <- function() {
 
     # Render the table showing all the nodes in the graph.
     output$all_nodes = renderTable({
-      graph_data$nodes
+      graph_data$nodes[, c("id,", "label", "group", "value")]
     })
 
     # Render the table showing all the edges in the graph.
     output$all_edges = renderTable({
-      graph_data$edges
+      graph_data$edges[, c("from", "to", "type", "label")]
     })
 
 
@@ -240,14 +240,27 @@ networkCreatoR <- function() {
       if (!"color" %in% colnames(temp$nodes)) temp$nodes$color <- NA
       if (!"id" %in% colnames(temp$nodes)) temp$nodes$id <- 1:nrow(temp$nodes)
 
+      # On vérifie qu'il y a des edges
+      if (!is.null(input$upload_edges$datapath)) {
+        if (tools::file_ext(input$upload_edges$datapath) == "rds") {temp$edges <- readRDS(input$upload_edges$datapath)}
+        if (tools::file_ext(input$upload_edges$datapath) == "csv") {temp$edges <- readr::read_csv2(input$upload_edges$datapath, show_col_types = FALSE)}
 
-      if (tools::file_ext(input$upload_edges$datapath) == "rds") {temp$edges <- readRDS(input$upload_edges$datapath)}
-      if (tools::file_ext(input$upload_edges$datapath) == "csv") {temp$edges <- readr::read_csv2(input$upload_edges$datapath, show_col_types = FALSE)}
+        if (!"value" %in% colnames(temp$edges)) temp$edges$width <- NA
+        if (!"type" %in% colnames(temp$edges)) temp$edges$type <- NA
+        if (!"label" %in% colnames(temp$edges)) temp$edges$label <- NA
+        if (!"id" %in% colnames(temp$edges)) temp$edges$id <- 1:nrow(temp$edges)
 
-      if (!"value" %in% colnames(temp$edges)) temp$edges$width <- NA
-      if (!"type" %in% colnames(temp$edges)) temp$edges$type <- NA
-      if (!"label" %in% colnames(temp$edges)) temp$edges$label <- NA
-      if (!"id" %in% colnames(temp$edges)) temp$edges$id <- 1:nrow(temp$edges)
+      # Sinon, on crée une base edges vide
+        } else {
+          temp$edges <-
+            data.frame(id = character(0),
+                       from = character(0),
+                       to = character(0),
+                       width = numeric(0),
+                       type = character(0),
+                       label = character(0),
+                       stringsAsFactors = F)
+      }
 
 
       graph_data$nodes <- temp$nodes
