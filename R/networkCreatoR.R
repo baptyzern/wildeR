@@ -174,12 +174,12 @@ networkCreatoR <- function() {
 
     # Render the table showing all the nodes in the graph.
     output$all_nodes = renderTable({
-      graph_data$nodes[, c("id,", "label", "group", "value")]
+      graph_data$nodes |> select(id, label, group, value)
     })
 
     # Render the table showing all the edges in the graph.
     output$all_edges = renderTable({
-      graph_data$edges[, c("from", "to", "type", "label")]
+      graph_data$edges |> select(from, to, type, label)
     })
 
 
@@ -234,21 +234,21 @@ networkCreatoR <- function() {
       if (tools::file_ext(input$upload_nodes$datapath) == "rds") {temp$nodes <- readRDS(input$upload_nodes$datapath)}
       if (tools::file_ext(input$upload_nodes$datapath) == "csv") {temp$nodes <- readr::read_csv2(input$upload_nodes$datapath, show_col_types = FALSE)}
 
+      if (!"id" %in% colnames(temp$nodes)) temp$nodes$id <- 1:nrow(temp$nodes)
+      if (!"label" %in% colnames(temp$nodes)) temp$nodes$label <- temp$nodes$id
       if (!"value" %in% colnames(temp$nodes)) temp$nodes$value <- NA
       if (!"group" %in% colnames(temp$nodes)) temp$nodes$group <- NA
-      if (!"label" %in% colnames(temp$nodes)) temp$nodes$label <- NA
       if (!"color" %in% colnames(temp$nodes)) temp$nodes$color <- NA
-      if (!"id" %in% colnames(temp$nodes)) temp$nodes$id <- 1:nrow(temp$nodes)
 
       # On vérifie qu'il y a des edges
       if (!is.null(input$upload_edges$datapath)) {
         if (tools::file_ext(input$upload_edges$datapath) == "rds") {temp$edges <- readRDS(input$upload_edges$datapath)}
         if (tools::file_ext(input$upload_edges$datapath) == "csv") {temp$edges <- readr::read_csv2(input$upload_edges$datapath, show_col_types = FALSE)}
 
+        if (!"id" %in% colnames(temp$edges)) temp$edges$id <- 1:nrow(temp$edges)
         if (!"value" %in% colnames(temp$edges)) temp$edges$width <- NA
         if (!"type" %in% colnames(temp$edges)) temp$edges$type <- NA
         if (!"label" %in% colnames(temp$edges)) temp$edges$label <- NA
-        if (!"id" %in% colnames(temp$edges)) temp$edges$id <- 1:nrow(temp$edges)
 
       # Sinon, on crée une base edges vide
         } else {
