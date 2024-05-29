@@ -8,19 +8,11 @@
 #' @return
 #' @export
 #'
+#' @examples
 #' sample <- data.frame(
 #'  variable_x = c("Male", "Female", "Female", NA, NA, "Male", "Female", "Male"),
 #'  variable_y =      c(1,        2,        3, NA, NA,      4,        1,    2),
 #'  weights =         c(1,        1,        3,  1,  2,      4,        1,    NA))
-
-
-# sample <- data.frame(
-#  variable_x = c("Male", "Female", "Female", NA, NA, "Male", "Female", "Male"),
-#  variable_y =      c(1,        2,        3, NA, NA,      4,        1,    2),
-#  weights =         c(1,        1,        3,  1,  2,      4,        1,    NA))
-# x = sample$variable_y
-# y = sample$variable_x
-# w = sample$weights
 
 wtd.distrib <- function(x, y = TRUE, w, filtering = TRUE, probs = c(0.1*0:10)) {
 
@@ -55,6 +47,14 @@ wtd.distrib <- function(x, y = TRUE, w, filtering = TRUE, probs = c(0.1*0:10)) {
   }
 
   wtd.distrib_ <- bind_rows(wtd.distrib_, .id = "level_")
-  wtd.distrib_ <- wtd.distrib_ |> `rownames<-`(wtd.distrib_$level_) |> select(-level_)
+  wtd.distrib_ <- wtd.distrib_ |> column_to_rownames(var = "level_")
   return(wtd.distrib_)
 }
+
+# sample <- data.frame(
+#  variable_x = c("Male", "Female", "Female", NA, NA, "Male", "Female", "Male"),
+#  variable_y =      c(1,        2,        3, NA, NA,      4,        1,    2),
+#  weights =         c(1,        1,        3,  1,  2,      4,        1,    NA))
+# x = sample$variable_y
+# y = sample$variable_x
+# w = sample$weights
