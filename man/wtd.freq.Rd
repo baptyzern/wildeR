@@ -4,39 +4,14 @@
 \alias{wtd.freq}
 \title{Weighted frequency tables.}
 \usage{
-wtd.freq(
-  x,
-  weights = NULL,
-  digits = 1,
-  cum = FALSE,
-  total = FALSE,
-  exclude = NULL,
-  sort = "",
-  valid = !(NA \%in\% exclude),
-  levels = c("prefixed", "labels", "values"),
-  na.last = TRUE
-)
+wtd.freq(x, weights, filter = TRUE, useNA = "ifany")
 }
 \arguments{
 \item{x}{either a vector to be tabulated, or a table object}
 
 \item{weights}{vector of weights, must be the same length as \code{x}}
 
-\item{digits}{number of digits to keep for the percentages}
-
-\item{cum}{if TRUE, display cumulative percentages}
-
-\item{total}{if TRUE, add a final row with totals}
-
-\item{exclude}{vector of values to exclude from the tabulation (if \code{x} is a vector)}
-
-\item{sort}{if specified, allow to sort the table by increasing ("inc") or decreasing ("dec") frequencies}
-
-\item{valid}{if TRUE, display valid percentages}
-
-\item{levels}{the desired levels for the factor in case of labelled vector (labelled package must be installed): "labels" for value labels, "values" for values or "prefixed" for labels prefixed with values}
-
-\item{na.last}{if TRUE, NA values are always be last table row}
+\item{useNA}{in "always", "no", "ifany" (default)}
 }
 \value{
 The result is an object of class data.frame.

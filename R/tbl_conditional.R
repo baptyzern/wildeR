@@ -23,8 +23,7 @@
 #'   "Female" = df$y %in% "Female",
 #' "Female Inactive" = df$y %in% "Female" & df$z %in% "Inactive"
 #' )
-#' result <- tbl_conditional(df$x, cond, df$w)
-#' print(result)
+#' tbl_conditional(df$x, cond, df$w)
 #'
 #' @export
 

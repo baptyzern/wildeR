@@ -14,11 +14,8 @@ tbl_compa(
   useNA = "no",
   filter = NULL,
   fun_prop = questionr::rprop,
-  n_funprop = FALSE,
-  drop_funprop = FALSE,
-  digits = 2,
   country_to = NULL,
-  label_ensemble = "Ensemble"
+  label_ensemble = ifelse(identical(questionr::rprop, fun_prop), "Total", "Ensemble")
 )
 }
 \arguments{
@@ -39,8 +36,6 @@ tbl_compa(
 \item{filter}{A logical vector indicating which observations to include. If NULL, all observations are included.}
 
 \item{fun_prop}{A function to calculate proportions. Default is \code{questionr::rprop}.}
-
-\item{digits}{Number of decimal places to include in the results. Default is 2.}
 
 \item{country_to}{An optional target format for country codes.}
 
