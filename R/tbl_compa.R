@@ -12,7 +12,6 @@
 #' @param useNA How to handle NA values. Options are 'no', 'ifany', or 'always'. Default is 'no'.
 #' @param filter A logical vector indicating which observations to include. If NULL, all observations are included.
 #' @param fun_prop A function to calculate proportions. Default is `questionr::rprop`.
-#' @param digits Number of decimal places to include in the results. Default is 2.
 #' @param country_to An optional target format for country codes.
 #' @param label_ensemble Label for the combined set of countries. Default is "Ensemble".
 #'
@@ -37,9 +36,6 @@ tbl_compa <- function(
     useNA = 'no',
     filter = NULL,
     fun_prop = questionr::rprop,
-    n_funprop = FALSE,
-    drop_funprop = FALSE,
-    digits = 2,
     country_to = NULL,
     label_ensemble = ifelse(identical(questionr::rprop, fun_prop), "Total", "Ensemble")
 ) {
@@ -96,8 +92,7 @@ tbl_compa <- function(
           x_vector[country_vector %in% country],
           y_vector[country_vector %in% country],
           w_vector[country_vector %in% country],
-          useNA = useNA,
-          digits = digits) |> fun_prop(drop = drop_funprop, n = n_funprop))
+          useNA = useNA) |> fun_prop(drop = FALSE, n = FALSE))
 
       colnames(table_country) <- paste0(country, "_", colnames(table_country))
 
@@ -109,8 +104,7 @@ tbl_compa <- function(
           x_vector[country_vector %in% country],
           y_vector[country_vector %in% country],
           w_vector[country_vector %in% country],
-          useNA = useNA,
-          digits = digits) |> fun_prop(drop = drop_funprop, n = n_funprop))[, y_index]}
+          useNA = useNA) |> fun_prop(drop = FALSE, n = FALSE))[, y_index]}
   }
 
 
@@ -124,8 +118,7 @@ tbl_compa <- function(
         x_vector,
         y_vector,
         w_vector,
-        useNA = useNA,
-        digits = digits) |> fun_prop(drop = drop_funprop, n = n_funprop))
+        useNA = useNA) |> fun_prop(drop = FALSE, n = FALSE))
 
     colnames(tbl_list[[label_ensemble]]) <- paste0(label_ensemble, "_", colnames(tbl_list[[label_ensemble]]))
 
@@ -136,8 +129,7 @@ tbl_compa <- function(
         x_vector,
         y_vector,
         w_vector,
-        useNA = useNA,
-        digits = digits) |> fun_prop(drop = drop_funprop, n = n_funprop))[, y_index]
+        useNA = useNA) |> fun_prop(drop = FALSE, n = FALSE))[, y_index]
   }
 
   # Create the final DataFrame
