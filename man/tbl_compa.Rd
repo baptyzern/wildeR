@@ -59,7 +59,6 @@ x <- sample(c("Yes", "No"), 100, replace = TRUE)
 y <- sample(c("A", "B"), 100, replace = TRUE)
 w <- runif(100, 0.5, 1.5)
 country <- sample(c("FR", "SE", "PT"), 100, replace = TRUE)
-result <- tbl_compa(x, y, w, country, countries = c("FR", "SE", "PT"))
-print(result)
+tbl_compa(x, y, w, country, countries = c("FR", "SE", "PT"))
 
 }

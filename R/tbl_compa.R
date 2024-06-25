@@ -23,8 +23,7 @@
 #' y <- sample(c("A", "B"), 100, replace = TRUE)
 #' w <- runif(100, 0.5, 1.5)
 #' country <- sample(c("FR", "SE", "PT"), 100, replace = TRUE)
-#' result <- tbl_compa(x, y, w, country, countries = c("FR", "SE", "PT"))
-#' print(result)
+#' tbl_compa(x, y, w, country, countries = c("FR", "SE", "PT"))
 #'
 #' @export
 
@@ -42,7 +41,7 @@ tbl_compa <- function(
     drop_funprop = FALSE,
     digits = 2,
     country_to = NULL,
-    label_ensemble = "Ensemble"
+    label_ensemble = ifelse(identical(questionr::rprop, fun_prop), "Total", "Ensemble")
 ) {
 
   # Input validation
@@ -87,40 +86,72 @@ tbl_compa <- function(
   # Calculate tables for each country
 
   for (country in countries) {
-    tbl_list[[country]] <-
-      (questionr::wtd.table(
-        x_vector[country_vector %in% country],
-        y_vector[country_vector %in% country],
-        w_vector[country_vector %in% country],
-        useNA = useNA,
-        digits = digits) |> fun_prop(drop = drop_funprop, n = n_funprop))[, y_index]
+
+    if (y_index %in% c(0, "all")) {
+
+
+
+      table_country <-
+        (questionr::wtd.table(
+          x_vector[country_vector %in% country],
+          y_vector[country_vector %in% country],
+          w_vector[country_vector %in% country],
+          useNA = useNA,
+          digits = digits) |> fun_prop(drop = drop_funprop, n = n_funprop))
+
+      colnames(table_country) <- paste0(country, "_", colnames(table_country))
+
+      tbl_list[[country]] <- table_country
+
+    } else {
+      tbl_list[[country]] <-
+        (questionr::wtd.table(
+          x_vector[country_vector %in% country],
+          y_vector[country_vector %in% country],
+          w_vector[country_vector %in% country],
+          useNA = useNA,
+          digits = digits) |> fun_prop(drop = drop_funprop, n = n_funprop))[, y_index]}
   }
 
 
 
   # Calculate table for the entire set
 
-  tbl_list[[label_ensemble]] <-
-    (questionr::wtd.table(
-      x_vector,
-      y_vector,
-      w_vector,
-      useNA = useNA,
-      digits = digits) |> fun_prop(drop = drop_funprop, n = n_funprop))[, y_index]
+  if (y_index %in% c(0, "all")) {
 
+    tbl_list[[label_ensemble]] <-
+      (questionr::wtd.table(
+        x_vector,
+        y_vector,
+        w_vector,
+        useNA = useNA,
+        digits = digits) |> fun_prop(drop = drop_funprop, n = n_funprop))
+
+    colnames(tbl_list[[label_ensemble]]) <- paste0(label_ensemble, "_", colnames(tbl_list[[label_ensemble]]))
+
+
+  } else {
+    tbl_list[[label_ensemble]] <-
+      (questionr::wtd.table(
+        x_vector,
+        y_vector,
+        w_vector,
+        useNA = useNA,
+        digits = digits) |> fun_prop(drop = drop_funprop, n = n_funprop))[, y_index]
+  }
 
   # Create the final DataFrame
 
   tbl_df <-
-    dplyr::bind_cols(tbl_list) |>
+    do.call(cbind, tbl_list) |>
     as.data.frame()
 
   # Add row names
 
   if (useNA != "no") {
-    rownames(tbl_df) <- c(levels(droplevels(x_vector)), "NA", "Total")
+    rownames(tbl_df) <- c(levels(droplevels(x_vector)), "NA", ifelse(identical(questionr::rprop, fun_prop), "Ensemble", "Total"))
   } else {
-    rownames(tbl_df) <- c(levels(droplevels(x_vector)), "Total")
+    rownames(tbl_df) <- c(levels(droplevels(x_vector)), ifelse(identical(questionr::rprop, fun_prop), "Ensemble", "Total"))
   }
 
   return(tbl_df)
