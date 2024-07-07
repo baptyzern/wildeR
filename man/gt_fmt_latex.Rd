@@ -10,7 +10,9 @@ gt_fmt_latex(
   tabcolsep = 0,
   arraystretch = 1,
   stretchtable = 1,
-  normalstretch = 1.5
+  normalstretch = 1.5,
+  caption = NULL,
+  caption_ = NULL
 )
 }
 \arguments{
@@ -25,6 +27,10 @@ gt_fmt_latex(
 \item{stretchtable}{Setstretch parameter within the table}
 
 \item{normalstretch}{Setstretch parameter outside the table}
+
+\item{caption}{Caption of the table}
+
+\item{caption_}{Caption of the table (unnumbered)}
 }
 \description{
 Formatting gt table(s) to LaTeX within a table environment

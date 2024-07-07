@@ -6,13 +6,16 @@
 #' @param arraystretch Seperator between the rows in pt (defaults to 1)
 #' @param stretchtable Setstretch parameter within the table
 #' @param normalstretch Setstretch parameter outside the table
+#' @param caption Caption of the table
+#' @param caption_ Caption of the table (unnumbered)
+#'
 #'
 #' @return
 #' @export
 #'
 #' @examples
 
-gt_fmt_latex <- function(x, float = "h", tabcolsep = 0, arraystretch = 1, stretchtable = 1, normalstretch = 1.5) {
+gt_fmt_latex <- function(x, float = "h", tabcolsep = 0, arraystretch = 1, stretchtable = 1, normalstretch = 1.5, caption = NULL, caption_ = NULL) {
 
   x <- gsub(
     x = x,
@@ -20,9 +23,14 @@ gt_fmt_latex <- function(x, float = "h", tabcolsep = 0, arraystretch = 1, stretc
     replacement = "\n\\vspace{4pt}\n\\begin{minipage}",
     fixed = TRUE)
 
-  paste0("\n\\begin{table}[", float, "]\n\n\\scriptsize\n\\setstretch{", stretchtable, "}\n",
-         "\\setlength{\\tabcolsep}{", tabcolsep, "pt} % Adjust horizontal padding\n",
-         "\\renewcommand{\\arraystretch}{", arraystretch, "} % Adjust vertical padding\n\n",
-         x,
-         "\n\\end{table}\n\n\\normalsize\n\\setstretch{", normalstretch, "}\n")
+  paste0(
+    "\n\\begin{table}[", float, "]\n",
+    "\n\\sffamily\n",
+    "\n\\scriptsize\n\\setstretch{", stretchtable, "}\n",
+    ifelse(!is.null(caption), paste0("\\caption{", caption, "}\n"), ""),
+    ifelse(!is.null(caption_), paste0("\\caption{", caption_, "}\n"), ""),
+    "\\setlength{\\tabcolsep}{", tabcolsep, "pt}\n", #  % Adjust horizontal padding
+    "\\renewcommand{\\arraystretch}{", arraystretch, "}\n\n", #% Adjust vertical padding
+    x,
+    "\n\\end{table}\n")
 }
