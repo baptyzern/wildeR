@@ -16,6 +16,7 @@ Imports:
     Hmisc,
     labelled,
     questionr,
+    tibble,
     utils
 Depends: 
     R (>= 2.10)

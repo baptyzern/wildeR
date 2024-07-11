@@ -2,19 +2,42 @@
 % Please edit documentation in R/wtd.distrib.R
 \name{wtd.distrib}
 \alias{wtd.distrib}
-\title{Title}
+\title{Weighted Statistical Distribution Summary}
 \usage{
-wtd.distrib(x, y = TRUE, w, filtering = TRUE, probs = c(0.1 * 0:10))
+wtd.distrib(
+  x,
+  y = NULL,
+  w,
+  filtering = TRUE,
+  probs = c(0.25 * 0:4),
+  use_y_NA = FALSE,
+  include_n = TRUE
+)
 }
 \arguments{
-\item{filtering}{}
+\item{x}{A vector of numeric data.}
+
+\item{y}{A vector of qualitative data (if you desire to compute statistics by groups).}
+
+\item{w}{A numerical vector for weighting the distribution}
+
+\item{filtering}{A logical vector used to filter \code{var} (and \code{var2}). Must be the same lenght.}
+
+\item{probs}{The details wanted aside \code{mean} and \code{sd}}
+
+\item{use_y_NA}{Include an NA level for \code{y}}
+
+\item{include_n}{Include the number of observations used.}
 }
 \description{
-Title
+Weighted Statistical Distribution Summary
 }
 \examples{
+
 sample <- data.frame(
- variable_x = c("Male", "Female", "Female", NA, NA, "Male", "Female", "Male"),
- variable_y =      c(1,        2,        3, NA, NA,      4,        1,    2),
- weights =         c(1,        1,        3,  1,  2,      4,        1,    NA))
+  variable_x =      c(1,        2,        3, NA, NA,      4,        1,    2),
+  variable_y = c("Male", "Female", "Female", NA, NA, "Male", "Female", "Male"),
+     weights =      c(1,        1,        3,  1,  2,      4,        1,    NA))
+wtd.distrib(x = sample$variable_x, y = sample$variable_y, w = sample$weights)
+wtd.distrib(x = sample$variable_x, y = NULL, w = sample$weights)
 }

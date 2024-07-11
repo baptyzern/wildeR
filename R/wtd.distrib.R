@@ -64,9 +64,9 @@ wtd.distrib <- function(x, y = NULL, w, filtering = TRUE, probs = c(0.25*0:4), u
       }
     }
 
-    wtd.distrib_ <- bind_rows(wtd.distrib_, .id = "level_")
-    if (!use_y_NA) {wtd.distrib_ <- wtd.distrib_ |> filter(level_ != "NA")}
-    wtd.distrib_ <- wtd.distrib_ |> column_to_rownames(var = "level_")
+    wtd.distrib_ <- dplyr::bind_rows(wtd.distrib_, .id = "level_")
+    if (!use_y_NA) {wtd.distrib_ <- wtd.distrib_ |> dplyr::filter(level_ != "NA")}
+    wtd.distrib_ <- wtd.distrib_ |> tibble::column_to_rownames(var = "level_")
 
   } else {
 
