@@ -13,7 +13,8 @@ gt_fmt_latex(
   normalstretch = 1.5,
   caption = NULL,
   caption_ = NULL,
-  use_longtable = FALSE
+  use_longtable = FALSE,
+  neuter_gt_font_size = TRUE
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ gt_fmt_latex(
 \item{caption_}{Caption of the table (unnumbered)}
 
 \item{use_longtable}{Using table environment and tabular}
+
+\item{neuter_gt_font_size}{Stop gt from messing with \verb{\\scriptsize}}
 }
 \description{
 Formatting gt table(s) to LaTeX within a table environment

@@ -9,20 +9,29 @@
 #' @param caption Caption of the table
 #' @param caption_ Caption of the table (unnumbered)
 #' @param use_longtable Using table environment and tabular
-#'
+#' @param neuter_gt_font_size Stop gt from messing with `\scriptsize`
 #'
 #' @return
 #' @export
 #'
 #' @examples
 
-gt_fmt_latex <- function(x, float = "h", tabcolsep = 0, arraystretch = 1, stretchtable = 1, normalstretch = 1.5, caption = NULL, caption_ = NULL, use_longtable = FALSE) {
+gt_fmt_latex <- function(x, float = "h", tabcolsep = 0, arraystretch = 1, stretchtable = 1, normalstretch = 1.5, caption = NULL, caption_ = NULL, use_longtable = FALSE, neuter_gt_font_size = TRUE) {
 
   x <- gsub(
     x = x,
     pattern = "\n\\begin{minipage}",
     replacement = "\n\n\\vspace{3pt}\n\\begin{minipage}",
     fixed = TRUE)
+
+  if (neuter_gt_font_size) {
+  x <- gsub(
+    x = x,
+    pattern = "\\fontsize",
+    replacement = "%\\fontsize",
+    fixed = TRUE)
+  }
+
 
   if (!use_longtable) {
     x <- gsub(
@@ -32,9 +41,11 @@ gt_fmt_latex <- function(x, float = "h", tabcolsep = 0, arraystretch = 1, stretc
       fixed = TRUE)
   }
 
+
+
   paste0(
     ifelse(!use_longtable, paste0("\n\\begin{table}[", float, "]\n\\centering\n"), ""),
-    "\n\\sffamily\n",
+    # "\n\\sffamily\n",
     "\n\\scriptsize\n\\setstretch{", stretchtable, "}\n",
     ifelse(!is.null(caption), paste0("\\caption{", caption, "}\n"), ""),
     ifelse(!is.null(caption_), paste0("\\caption{", caption_, "}\n"), ""),
